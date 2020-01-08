@@ -1,0 +1,152 @@
+<style>
+    i{ 
+      cursor: pointer;
+    }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<button (click) = "ExportTOExcel()" style="float: right;color: white; background-color: blueviolet;">ExportToExcel<i class="material-icons" style="font-size:10px">done</i></button> 
+<table width="100%" #TABLE #table>
+  <col style = "width:30%">
+  <col style = "width:30%">
+  <col style = "width:40%">
+
+  <!---@section1: Title -->
+  <tr style="font-size: 25px;">
+    <table>
+    <tr>
+      <td style="width: 240px;">Serviscope Retro Sprint </td>
+      <td>
+          <div *ngIf = "!HeadingEditabletitle">{{HeadingTitle}}
+             <i class="material-icons" (click) = "editHeading('title')" style="font-size:17px;">border_color</i>
+          </div>
+          <div *ngIf = "HeadingEditabletitle"> 
+            <input type="text" value = {{HeadingTitle}} #edited style="width: 107px;height: 24px;background-color: cornsilk;">
+            <button  (click) = "Addheading('title',edited.value)"><i class="material-icons" style="font-size:10px">done</i></button>
+            <button (click) = "cancelHeading('title')"><i class="material-icons" style="font-size:10px">clear</i></button>
+          </div>  
+      </td> 
+    </tr>
+    </table>  
+  </tr>
+  <tr style="height: 25px"></tr>    
+  <!---@section2: First column heading -->
+  <tr>
+    <th>
+      <div id="went" *ngIf = "!HeadingEditablewent">{{HeadingWent}}
+        <i class="material-icons" (click) = "editHeading('went')" style="font-size:15px; color:green">border_color</i>
+      </div>
+      <div id= "went" *ngIf = "HeadingEditablewent">
+          <input type="text" value = {{HeadingWent}} #edited>
+          <button  (click) = "Addheading('went',edited.value)"><i class="material-icons" style="font-size:10px">done</i></button>
+          <button (click) = "cancelHeading('went')"><i class="material-icons" style="font-size:10px">clear</i></button>
+      </div>    
+    </th>
+
+  <!---@section3: second column heading-->
+     <th>
+        <div id="improve" *ngIf = "!HeadingEditableimprove">{{HeadingImprove}}
+          <i class="material-icons" (click) = "editHeading('improve')" style="font-size:15px; color:#e91e63">border_color</i>
+        </div>
+        <div id= "improve" *ngIf = "HeadingEditableimprove">
+            <input type="text" value = {{HeadingImprove}} #edited>
+            <button  (click) = "Addheading('improve',edited.value)"><i class="material-icons" style="font-size:10px">done</i></button>
+            <button  (click) = "cancelHeading('improve')"><i class="material-icons" style="font-size:10px">clear</i></button>
+        </div>
+      </th>
+
+    <!---@section4: third column heading/ action item -->
+      <th>
+          <div id="action" *ngIf = "!HeadingEditableaction">{{HeadingAction}}
+            <i class="material-icons" (click) = "editHeading('action')" style="font-size:15px; color:#9c27b0">border_color</i>
+          </div>
+          <div id= "action" *ngIf = "HeadingEditableaction">
+
+              <input type="text" value = {{HeadingAction}} #edited>
+              <button  (click) = "Addheading('action',edited.value)"><i class="material-icons" style="font-size:10px">done</i></button>
+              <button (click) = "cancelHeading('action')"><i class="material-icons"  style="font-size:10px">clear</i></button>
+          </div>
+      </th>
+  </tr>
+
+<!--second row-->
+  <tr>
+    <td>
+      <div class="example-button-row" style="display: flex; justify-content: center;">
+        <button mat-raised-button color="primary" style="width: 85%;border:none; margin-bottom: 5px" (click)="setaddwent()">+</button> 
+      </div>
+      <div *ngIf = "isaddwent">
+        <input type="text" #toadd style="width:350px;height:70px; margin-left: 8%">
+        <button  (click) = "showTextwent(toadd.value)" style="position: absolute; color:green"><i class="material-icons" style="font-size:10px">done</i></button>
+        <button (click) = "tocancelwent()" style="color:red"><i class="material-icons"  style="font-size:10px">clear</i></button>
+      </div>
+      <div class="list-group" style="color: white; width: 360px; margin-left: 7%;">
+        <div *ngFor="let task of Wentwell; let i = index" class="list-group-item" style="margin-top: 5px;">          
+          <div id= {{i}} *ngIf = "i != idwent" style="background-color: green; height: 40px;"><span style="margin-left: 5px;margin-top: 5px;position: absolute;">{{task.name}}</span>
+            <span style="float:right">
+                <i class="material-icons" style="font-size:15px; padding-right: 5px; cursor: pointer;" (click) = "deletewent(i)">delete_sweep</i>
+                <i class="material-icons" (click) = "editwent(i)" style="font-size:15px; cursor: pointer;">border_color</i>
+            </span>
+          </div>
+          <div id= {{i}} *ngIf = "((iseditenableWent) && (i == idwent))">
+              <input type="text" value = {{task.name}} #edited style="width:355px;height:70px;">
+              <button  (click) = "editTextwent(i,edited.value)" style="color:green; position: absolute;"><i class="material-icons" style="font-size:10px;">done</i></button>
+              <button (click) = "tocancelwent()" style="color:red; margin-top: 25px;position: absolute"><i class="material-icons" style="font-size:10px;">clear</i></button>
+          </div>            
+        </div>
+      </div>
+    </td>
+    <td>
+      <div class="example-button-row" style="display: flex; justify-content: center;">
+          <button mat-raised-button color="primary" style="width: 85%;border:none; margin-bottom: 5px" (click)="setaddimprove()">+</button> 
+      </div>
+      <div *ngIf = "isaddimprove">
+          <input type="text" #toadd style="width:350px;height:70px; margin-left: 8%">
+          <button  (click) = "showTextimprove(toadd.value)" style="position: absolute; color:green"><i class="material-icons" style="font-size:10px">done</i></button>
+          <button (click) = "tocancelimprove()" style="color:red"><i class="material-icons"  style="font-size:10px">clear</i></button>
+      </div> 
+      <div class="list-group" style="color: white; width: 360px; margin-left: 7%;">
+          <div *ngFor="let task of Toimprove; let i = index" class="list-group-item" style="margin-top: 5px;">        
+            <div id= {{i}} *ngIf = "i != idimprove" style="background-color: red;height: 40px;"><span style="margin-left: 5px;margin-top: 5px;position: absolute;">{{task.name}}</span>
+              <span style="float:right">
+                  <i class="material-icons" style="font-size:15px; padding-right: 5px; cursor: pointer;" (click) = "deleteimprove(i)">delete_sweep</i>
+                  <i class="material-icons" (click) = "editimprove(i)" style="font-size:15px; cursor: pointer;">border_color</i>
+              </span>
+            </div>
+            <div id= {{i}} *ngIf = "((iseditenableimprove) && (i == idimprove))">
+                <input type="text" value = {{task.name}} #edited style="width:355px;height:70px;">
+                <button  (click) = "editTextimprove(i,edited.value)" style="color: green;position: absolute;"><i class="material-icons" style="font-size:10px">done</i></button>
+                <button (click) = "tocancelimprove()" style="color: red;position: absolute; margin-top: 25px"><i class="material-icons"  style="font-size:10px">clear</i></button>
+            </div>          
+          </div>
+      </div>               
+    </td>
+    <td>
+      <div class="example-button-row" style="display: flex; justify-content: center;">
+          <button mat-raised-button color="primary" style="width: 85%;border:none; margin-bottom: 5px" (click)="setaddaction()">+</button> 
+        </div>
+        <div *ngIf = "isaddaction">
+          <input type="text" #toadd style="width:479px;height:70px; margin-left: 8%">
+          <button  (click) = "showTextaction(toadd.value)" style="position: absolute; color:green"><i class="material-icons" style="font-size:10px">done</i></button>
+          <button (click) = "tocancelaction()" style="color:red"><i class="material-icons"  style="font-size:10px">clear</i></button>
+        </div>
+        <div class="list-group" style="color: white; width: 483px; margin-left: 7%;">
+            <div *ngFor="let task of Actionitem; let i = index" class="list-group-item" style="margin-top: 5px;">          
+              <div id= {{i}} *ngIf = "i != idaction" style="background-color: blueviolet;height: 40px;"><span style="margin-left: 5px;margin-top: 5px;position: absolute;">{{task.name}}</span>
+                <span style="float:right">
+                  <i class="material-icons" style="font-size:15px; padding-right: 5px; cursor: pointer;" (click) = "deleteaction(i)">delete_sweep</i>
+                  <i class="material-icons" (click) = "editaction(i)" style="font-size:15px; cursor: pointer;">border_color</i>
+                </span>
+              </div>
+              <div id= {{i}} *ngIf = "((iseditenableaction) && (i == idaction))">
+                  <input type="text" value = {{task.name}} #edited style="width:479px;height:70px;">
+                  <button  (click) = "editTextaction(i,edited.value)" style="color: green; position: absolute;"><i class="material-icons" style="font-size:10px">done</i></button>
+                  <button (click) = "tocancelaction()" style="color:red;position: absolute; margin-top:25px"><i class="material-icons"  style="font-size:10px">clear</i></button>
+              </div>            
+            </div>
+        </div>                
+      </td>
+  </tr>
+</table>
+<router-outlet></router-outlet>
