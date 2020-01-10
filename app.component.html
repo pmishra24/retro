@@ -106,7 +106,7 @@
             </span>
           </div>
           <div id= {{i}} *ngIf = "((iseditenableWent) && (i == idwent))">
-              <input type="text" value = {{task.name}} #edited style="width:355px;height:70px;">
+              <input type="text" value = {{task}} #edited style="width:355px;height:70px;">
               <button  (click) = "editTextwent(i,edited.value)" style="color:green; position: absolute;"><i class="material-icons" style="font-size:10px;">done</i></button>
               <button (click) = "tocancelwent()" style="color:red; margin-top: 25px;position: absolute"><i class="material-icons" style="font-size:10px;">clear</i></button>
           </div>            
@@ -131,7 +131,7 @@
               </span>
             </div>
             <div id= {{i}} *ngIf = "((iseditenableimprove) && (i == idimprove))">
-                <input type="text" value = {{task.name}} #edited style="width:355px;height:70px;">
+                <input type="text" value = {{task}} #edited style="width:355px;height:70px;">
                 <button  (click) = "editTextimprove(i,edited.value)" style="color: green;position: absolute;"><i class="material-icons" style="font-size:10px">done</i></button>
                 <button (click) = "tocancelimprove()" style="color: red;position: absolute; margin-top: 25px"><i class="material-icons"  style="font-size:10px">clear</i></button>
             </div>          
@@ -156,7 +156,7 @@
                 </span>
               </div>
               <div id= {{i}} *ngIf = "((iseditenableaction) && (i == idaction))">
-                  <input type="text" value = {{task.name}} #edited style="width:479px;height:70px;">
+                  <input type="text" value = {{task}} #edited style="width:479px;height:70px;">
                   <button  (click) = "editTextaction(i,edited.value)" style="color: green; position: absolute;"><i class="material-icons" style="font-size:10px">done</i></button>
                   <button (click) = "tocancelaction()" style="color:red;position: absolute; margin-top:25px"><i class="material-icons"  style="font-size:10px">clear</i></button>
               </div>            
