@@ -1,13 +1,29 @@
-<style>
+ <style>
     i{ 
       cursor: pointer;
     }
+    #Add{width: 85%;border:none; margin-bottom: 5px; height: 26px;}
+
+
 </style>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+<!--<input type="file" (change)="onFileChange($event)" multiple="false" />
+	<table class="sjs-table">
+		<tbody>
+      <tr *ngFor="let row of data1">
+			<td *ngFor="let val of row">
+				{{val}}
+			</td>
+		</tr>
+    </tbody>
+	</table>-->
+
 <button (click) = "ExportTOExcel()" style="float: right;color: white; background-color: blueviolet;">ExportToExcel<i class="material-icons" style="font-size:10px">done</i></button> 
-<table width="100%" #TABLE #table>
+<div style="width:100%;height: 100%" >
+<table style="width:100%;" #TABLE #table>
   <col style = "width:30%">
   <col style = "width:30%">
   <col style = "width:40%">
@@ -15,7 +31,7 @@
   <!---@section1: Title -->
   <tr style="font-size: 25px;">
     <table>
-    <tr>
+    <tr style="height: 42px;">
       <td style="width: 240px;">Serviscope Retro Sprint </td>
       <td>
           <div *ngIf = "!HeadingEditabletitle">{{HeadingTitle}}
@@ -74,7 +90,7 @@
   <tr>
     <td>
       <div class="example-button-row" style="display: flex; justify-content: center;">
-        <button mat-raised-button color="primary" style="width: 85%;border:none; margin-bottom: 5px" (click)="setaddwent()">+</button> 
+        <button id = "Add" mat-raised-button color="primary"  (click)="setaddwent()">+</button> 
       </div>
       <div *ngIf = "isaddwent">
         <input type="text" #toadd style="width:350px;height:70px; margin-left: 8%">
@@ -83,7 +99,7 @@
       </div>
       <div class="list-group" style="color: white; width: 360px; margin-left: 7%;">
         <div *ngFor="let task of Wentwell; let i = index" class="list-group-item" style="margin-top: 5px;">          
-          <div id= {{i}} *ngIf = "i != idwent" style="background-color: green; height: 40px;"><span style="margin-left: 5px;margin-top: 5px;position: absolute;">{{task.name}}</span>
+          <div id= {{i}} *ngIf = "i != idwent" style="background-color: green; height: 40px;"><span style="margin-left: 5px;margin-top: 5px;position: absolute;">{{task}}</span>
             <span style="float:right">
                 <i class="material-icons" style="font-size:15px; padding-right: 5px; cursor: pointer;" (click) = "deletewent(i)">delete_sweep</i>
                 <i class="material-icons" (click) = "editwent(i)" style="font-size:15px; cursor: pointer;">border_color</i>
@@ -99,7 +115,7 @@
     </td>
     <td>
       <div class="example-button-row" style="display: flex; justify-content: center;">
-          <button mat-raised-button color="primary" style="width: 85%;border:none; margin-bottom: 5px" (click)="setaddimprove()">+</button> 
+          <button id = "Add" mat-raised-button color="primary" (click)="setaddimprove()">+</button> 
       </div>
       <div *ngIf = "isaddimprove">
           <input type="text" #toadd style="width:350px;height:70px; margin-left: 8%">
@@ -108,7 +124,7 @@
       </div> 
       <div class="list-group" style="color: white; width: 360px; margin-left: 7%;">
           <div *ngFor="let task of Toimprove; let i = index" class="list-group-item" style="margin-top: 5px;">        
-            <div id= {{i}} *ngIf = "i != idimprove" style="background-color: red;height: 40px;"><span style="margin-left: 5px;margin-top: 5px;position: absolute;">{{task.name}}</span>
+            <div id= {{i}} *ngIf = "i != idimprove" style="background-color: red;height: 40px;"><span style="margin-left: 5px;margin-top: 5px;position: absolute;">{{task}}</span>
               <span style="float:right">
                   <i class="material-icons" style="font-size:15px; padding-right: 5px; cursor: pointer;" (click) = "deleteimprove(i)">delete_sweep</i>
                   <i class="material-icons" (click) = "editimprove(i)" style="font-size:15px; cursor: pointer;">border_color</i>
@@ -124,7 +140,7 @@
     </td>
     <td>
       <div class="example-button-row" style="display: flex; justify-content: center;">
-          <button mat-raised-button color="primary" style="width: 85%;border:none; margin-bottom: 5px" (click)="setaddaction()">+</button> 
+          <button id = "Add" mat-raised-button color="primary" (click)="setaddaction()">+</button> 
         </div>
         <div *ngIf = "isaddaction">
           <input type="text" #toadd style="width:479px;height:70px; margin-left: 8%">
@@ -133,7 +149,7 @@
         </div>
         <div class="list-group" style="color: white; width: 483px; margin-left: 7%;">
             <div *ngFor="let task of Actionitem; let i = index" class="list-group-item" style="margin-top: 5px;">          
-              <div id= {{i}} *ngIf = "i != idaction" style="background-color: blueviolet;height: 40px;"><span style="margin-left: 5px;margin-top: 5px;position: absolute;">{{task.name}}</span>
+              <div id= {{i}} *ngIf = "i != idaction" style="background-color: blueviolet;height: 40px;"><span style="margin-left: 5px;margin-top: 5px;position: absolute;">{{task}}</span>
                 <span style="float:right">
                   <i class="material-icons" style="font-size:15px; padding-right: 5px; cursor: pointer;" (click) = "deleteaction(i)">delete_sweep</i>
                   <i class="material-icons" (click) = "editaction(i)" style="font-size:15px; cursor: pointer;">border_color</i>
@@ -149,4 +165,12 @@
       </td>
   </tr>
 </table>
+</div>
+
+
+<script>
+      $( document ).ready(function() {
+    console.log( "ready!" );
+});
+</script>
 <router-outlet></router-outlet>
